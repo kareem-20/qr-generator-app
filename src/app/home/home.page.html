@@ -1,20 +1,37 @@
-<ion-header [translucent]="true">
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-title>
-      Blank
+      QR Generator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class=" container">
+    <ion-item>
+      <ion-label position="floating">data</ion-label>
+      <ion-textarea rows="3" autoGrow="true" autofocus="true" [(ngModel)]="value"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>اللون</ion-label>
+      <input type="color" [(ngModel)]="colorDark" name="color" id="">
+    </ion-item>
+    <ion-item>
+      <ion-label>لون الخلفية</ion-label>
+      <input type="color" [(ngModel)]="colorLight" name="back" id="">
+    </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-button (click)="generate()" expand="block" fill="solid" mode="ios">
+      generate
+    </ion-button>
+
+    <div class="box" *ngIf="myAngularxQrCode">
+
+      <qrcode (qrCodeURL)="onChangeURL($event)" [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'L'"
+        [colorDark]="colorDark" [colorLight]="colorLight">
+      </qrcode>
+      <a [href]="qrCodeDownloadLink" download="qrcode">Download</a>
+    </div>
+
   </div>
 </ion-content>
